@@ -9,7 +9,7 @@
 
 -- Create table then add foreign keys to the existing tables -- 
 
-use kpmgsqltraining
+use amdocssqltraining
 go 
 
 --drop table LookupTables.STATE

@@ -1,11 +1,11 @@
 -- Create database -- 
 
-create database "cgsqltraining"
+create database "amdocssqltraining"
 go 
 
-drop DATABASE  "cgsqltraining"
+drop DATABASE  "amdocssqltraining"
 go
 
-use "cgsqltraining"
+use "amdocssqltraining"
 
 drop table Customers.Customer_sample

@@ -2,7 +2,7 @@
 
 -- It's also used with savepoint command to jump to a savepoint. 
 
-use kpmgsqltraining
+use amdocssqltraining
 GO 
 
 BEGIN TRANSACTION;

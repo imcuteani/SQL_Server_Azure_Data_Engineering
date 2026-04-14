@@ -1,4 +1,4 @@
-use kpmgsqltraining
+use amdocssqltraining
 GO 
 
 -- COMMIT Transaction -- 

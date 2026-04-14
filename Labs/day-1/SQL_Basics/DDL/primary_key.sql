@@ -5,7 +5,7 @@
 -- a table in a db should have a primary key
 -- it cant contain a NULL 
 
-use kpmgsqltraining
+use amdocssqltraining
 go 
 
 drop table Customers.Customer

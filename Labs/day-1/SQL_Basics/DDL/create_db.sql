@@ -3,7 +3,7 @@
 create database "kpmgsqltraining"
 go 
 
-drop DATABASE  "kpmgsqltraining"
+drop DATABASE  "amdocssqltraining"
 go
 
 

@@ -15,7 +15,7 @@
 -- Check Constraints allow to restrict the range of values within a column in a table on SQL server
 -- TaxAmount and SubTotal, ShippingAmount values should be positive 
 
-use "kpmgsqltraining"
+use "amdocssqltraining"
 go 
 
 drop table Orders.OrderHeader

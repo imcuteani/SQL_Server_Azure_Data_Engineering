@@ -4,7 +4,7 @@
 -- ProductCost and ListPrice should be > 0 
 -- OrderDetail table, the tax and shipping amount value should be > 0 
 
-use "kpmgsqltraining"
+use "amdocssqltraining"
 GO
 
 drop table Products.Product 
