@@ -1,0 +1,102 @@
+ColumnStore Index in SQL Server 
+
+Standard for data storage, querying data from data warehouses like Fact tables & large dimension tables. 
+
+Columnstore index is a tech stack which is used for storing, retrieval & managing of data using columnar data format. This is called a columnstore. 
+
+Real time scenario 
+
+1. a columnstore is data which's logically organized as a table with rows & columns, and physically stored in a column wise data format. 
+
+Rowstore 
+
+a rowstore is similar like columnstore which's stored as table with rows and columns, unlike columnstore, data is stored in a row wise format. 
+In SQL server, the rowstore to a table where the underlying data storage is a heap / clustered index / memory optimized SQL server table. 
+
+Rowgroup 
+
+A group of SQL table data rows which are compressed into columnstore format at the same time. A rowgroup usually contains the max number of rows per rowgroup 
+which's 1,048576 rows. 
+
+JSON Data in SQL Server (SQL Server 2016)
+
+SQL Server has built-in functions and operators, the functionalities are available with JSON data - 
+
+1. Parse JSON document and to read and amend values through SQL server tables 
+2. Transform arrays of JSON objects into table format. 
+3. Execute any TSQL query on the converted JSON object. 
+4. Format the output results of TSQL queries in JSON format. 
+
+Spatial data types in SQL Server (SQL Server 2008 onwards)
+
+1. geometry -> store the data on points, line, polygons etc. 
+2. geography -> latitude & longitude. 
+
+HiearchyID type (SQL Server 2008 onwards) 
+
+subtree (binary tree with parent/child relationship) 
+
+
+XML Data in SQL Server (SQL Server 2005 / 2008 onwards) 
+
+1. In SQL Server, the XML data type , XML values can be stored natively in XML data type column which can be typed according to the XML schemas collection. 
+
+The XML column within SQL server table can be indexed. 
+
+- It has the ability to perform XML data stored within SQL columns and variables of the XML type using XQuery query. 
+
+- bulk loading of XML data into SQL server tables using OPENROWSET function. 
+
+
+Scenarios / Use cases for Clustered & Non Clustered Columnstore index 
+
+1. for storing fact tables and large dimension tables for DW workloads. To improve query performance and data compression by 10x times. 
+
+2. High compression of data is useful by using smaller in-memory footprint. Query performance can improve SQL server which can peform more query anddata operations in memory. 
+
+3. Non-clustered columnstore index to perform the analysis on realtime basis for OLTP workloads. 
+
+https://github.com/imcuteani/SQL_Server_Azure_Data_Engineering.git
+
+
+SQL Server Platform Architecture 
+
+1. Protocol Layer - (SNI) - responsible for facilitating the communication between SQL Server and client apps. 
+This layer ensures that data is transferred correctly over the network through TCP named pipes (TCP protocol with port 1433). 
+
+-> a) Shared memory -> a protocol for SQL server and client when in same machine. 
+-> TCP/IP -> for most commonly used protocol for remote connetions to SQL server. It's reliable, scalable. 
+-> Named pipes -> typically used for communication on the same machine or local network. It's less efficient than TCP/IP for remote connections. 
+-> TDS -> (Tabular data stream) it's the protocol getting used by SQL server to facilitate the communication between client and SQL server database engine. 
+
+
+2. Relation engine layer - responsible for managing , executing of SQL queries including data parsing, optimization and executing of SQL queries. 
+
+-> CMD Parser -> converting the SQL statements into a format SQL server binary format. 
+
+-> Optimizer -> deciding the most efficient way to execute the query. 
+
+-> Query executor -> carrying out the actual work (retrieval or modifying the data) as per query plan. 
+
+-> Transaction management -> ensuring the data consistency and integrity using ACID properties. 
+
+3. Storage Engine - which manages how the data is stored, retrived and uploaded on disk. It works closly with relational engine (query processor) to ensure 
+data is efficiently managed and protected in the database. 
+
+The storage engine also handles the functionalities like data storage, transaction logging, data integrity, data durability, indexing and recovery. 
+
+-> Data files -> Data files are the actual database content, like tables, views, SP, functions, system databases etc. organizes the data into filegroups. 
+.mdf, .ndf, .ldf
+
+-> Access method -> in the way the query processor retrives the data from the underlying storage (data files, tables, indexes) based on the query and 
+available data. 
+
+-> Buffer manager -> critical component responsible for managing the memory cache, how SQL server stores and retrieval of data pages to optimize 
+the performance. The buffer manager is minimize the disk I/O operation by maintaning a pool of accessed database pages in memory. To speed up the data retrieval 
+and reducing the disk access. 
+
+-> database plan cache -> stores database execution plan generated by SQL server query optimizer. An execution plan is compiled representation of how SQL server
+can perform scans, seek, joins, data filtering, sorting etc. 
+
+-> Transaction manager -> the transaction manager is a critical component within SQL server ensuring the database transactions are executed as per 
+ACID compliance. 
