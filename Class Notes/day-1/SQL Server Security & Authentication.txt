@@ -1,0 +1,92 @@
+day 2 
+
+----------
+
+Security of SQL server platform (best practices) 
+
+1. defence in depth approach 
+
+a) Column level protection - sensitive data requires data identification, classfication like SSN, credit card numbers, phone numbers, finance account info, 
+level the protection at the column level with minimal overhead to apply the protection for the app code. 
+
+- Always encrypted -> used here randomized deterministic algo as applicable to encrypt the data over the network & at rest. 
+
+- Dynamic data masking -> to obfuscate the data at column level when Always encrypted feature isn't sufficient. 
+
+b) Row level protection 
+
+RLS makes sure the users can only see the records that pertains to them. This gives the app record security without making significant changes to the app. 
+
+-> should be using seperate schema for RLS objects : predicate functions, security policies. 
+
+-> ALTER ANY SECURITY POLICY permission 
+
+-> prevent the type conversion in predicate functions to avoid potential runtime errors. 
+
+DBCC SHOW_STATISTICS -> reports the statistics on unfiltered data, and prevent the data leakage. 
+
+c) File encryption 
+
+TDE protects the data at the file level by providing encryption at rest to database file. TDE also ensures the database files, backup files and 
+tempdb files cant be attached or read without proper certificates decrypting database files. 
+
+Without TDE, provides real time I/O encryption of the data and log files. DEK can also be protected with a certificate. 
+
+d) Audit & reporting 
+
+SQL Server Audit policies at server level applies to all existing and newly created databases on the server. 
+
+e) Identity and access management with Authentication 
+
+- SQL logins 
+
+1. A local windows user account or AD domain account - SQL Server relies upon Windows domain to authenticate the Windows user accounts. 
+
+2. Windows group - granting access to a Windows group, it should grants access to all Windows user logins which are member of the group. 
+
+3. SQL server login -> SQL Server stores the username & password (hash of the password) in the master db. 
+
+4. Contained database users authenticate SQL server connections at the database level. A contained database is a database which is isolated 
+from the other database and from the instance of SQL server which host the database. SQL Server supports contained database users for both Windows & SQL 
+Server authentication. 
+
+5. Principles of least priviledge (zero trust model) 
+
+6. GMSA (group level managed service accounts) - provide the automated password management, SPN 
+
+f) Data lineage & integrity 
+
+use temporal tables to preserve the record version over the time to see the data as it was over the record's life span to provide the 
+historical view of the application data. 
+
+-> SQL Injection 
+
+Recovery of SQL Server from failure 
+-----------------------------------------
+
+1. The database (a database restore completely) 
+
+The whole database can be restored and recovered, and the database is offline during the restore and recovery operation. 
+
+2. The data file (a file restore) 
+
+a data file or a set of files can be restored and recovered. During a file restore, the filgroups which contains the files are automatically offline during 
+the SQL database restoration time from crash/failure. Any attempt to access an offline filegroup causes an error. 
+
+3. The data page (a page restore) 
+
+under the full recovery model of SQL server, admins can restore individual pages, Page restores can be performed on any db, regardless of number of filegroups.
+
+
+SQL Server db restoration scenarios
+-----------------------------------
+
+1. Complete database restore -> simply restoring and recovering the full database. 
+
+2. File restore -> restore one or more damaged read-only files without restoring the entire database. File restore is available only if the 
+database has at least one read-only filegroup. 
+
+3. Page restore -> restores one or more damanged db pages. Page restore can be performed while the db is offline, once is the page has been restored, then 
+it becomes online.  
+
+
