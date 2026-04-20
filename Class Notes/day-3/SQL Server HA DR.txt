@@ -1,0 +1,31 @@
+Day 3 - SQL Server High Availability 
+
+SQL Server High Availability refers to the set of technologies designed to minimize downtime and ensure services to remain accessible during the 
+planned maintenance , unwanted database failure or unplanned maintenance. 
+
+Objective 
+
+- 1. To keep the database available & accessible to end users when there's any backup / restore / maintenance job is running 
+
+- 2. To keep the attack surface of the database is minimal. 
+
+- 3. The database should remains always available. 
+
+- Log Shipping -> shipping of the database transaction logs from one database to another database (primary db file -> .mdf, secondary db file -> .ndf, transaction 
+
+log file -> .ldf) 
+
+- Database Mirroring (SQL Server 2025 mostly deprecated) 
+
+- Replication 
+
+- Always on Availability groups (AG) 
+
+- Always on Failover Cluster Instances (FCI) 
+
+Benefits 
+
+1. The high availability comes up actual real time database backup and restore procedure within a specific time period(RTO) and specific acceptable data loss ranges(RPO)
+
+2. RTO -> Recovery time objective -> 
+
