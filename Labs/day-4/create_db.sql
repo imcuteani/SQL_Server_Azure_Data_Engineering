@@ -1,15 +1,15 @@
-create database publisher
+create database amdocspublisher
 GO
 
-USE [publisher]
+USE [amdocspublisher]
 GO
-ALTER DATABASE [publisher] SET RECOVERY FULL WITH NO_WAIT
+ALTER DATABASE [amdocspublisher] SET RECOVERY FULL WITH NO_WAIT
 GO
 
 
 
 
-USE [publisher]
+USE [amdocspublisher]
 GO
 -- create schemas -- 
 CREATE SCHEMA Customers AUTHORIZATION dbo 

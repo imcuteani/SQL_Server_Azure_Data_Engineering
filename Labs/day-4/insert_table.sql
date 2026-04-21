@@ -1,4 +1,4 @@
-use publisher;
+use amdocspublisher;
 GO
 
 SET IDENTITY_INSERT [Customers].[Customer] ON
@@ -31,6 +31,7 @@ VALUES
  '',
  'united states')
 GO
+SET IDENTITY_INSERT [Customer].[CustomerAddress]OFF
 
 use "publisher"
 go 
