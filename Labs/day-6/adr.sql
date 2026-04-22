@@ -3,22 +3,21 @@
 -- Note: *For Linux installations the default path to use is /var/opt/mssql
 USE master
 GO
-DROP DATABASE IF EXISTS gocowboys
+DROP DATABASE IF EXISTS gocowboys_new
 GO
-CREATE DATABASE gocowboys
+CREATE DATABASE gocowboys_new
 ON PRIMARY
-ON PRIMARY
-(NAME = N'gocowboys_primary', FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\gocowboys.mdf', SIZE = 2Gb , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB)
+(NAME = N'gocowboys_new_primary', FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\gocowboys.mdf', SIZE = 2Gb , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB)
 LOG ON 
-(NAME = N'gocowboys_Log', FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\gocowboys_log.ldf', SIZE = 5Gb , MAXSIZE = UNLIMITED , FILEGROWTH = 65536KB)
+(NAME = N'gocowboys_new_Log', FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\gocowboys_log.ldf', SIZE = 5Gb , MAXSIZE = UNLIMITED , FILEGROWTH = 65536KB)
 GO
-ALTER DATABASE gocowboys SET RECOVERY SIMPLE
+ALTER DATABASE gocowboys_new SET RECOVERY SIMPLE
 GO
-USE gocowboys
+USE gocowboys_new
 GO
-DROP TABLE IF EXISTS howboutthemcowboys
+DROP TABLE IF EXISTS howboutthemcowboys_new
 GO
-CREATE TABLE howboutthemcowboys (playerid int primary key clustered, playername char(7000) not null)
+CREATE TABLE howboutthemcowboys_new (playerid int primary key clustered, playername char(7000) not null)
 GO
 SET NOCOUNT ON
 GO
@@ -27,7 +26,7 @@ DECLARE @x int
 SET @x = 0
 WHILE (@x < 100000)
 BEGIN
-	INSERT INTO howboutthemcowboys VALUES (@x, 'Jason Witten returns in 2019')
+	INSERT INTO howboutthemcowboys_new VALUES (@x, 'Jason Witten returns in 2019')
 	SET @x = @x + 1
 END
 COMMIT TRAN
@@ -41,13 +40,13 @@ GO
 -- Make sure ADR is OFF
 USE master
 GO
-ALTER DATABASE gocowboys SET ACCELERATED_DATABASE_RECOVERY = OFF
+ALTER DATABASE gocowboys_new SET ACCELERATED_DATABASE_RECOVERY = OFF
 GO
 -- Try to delete a bunch of rows
-USE gocowboys
+USE gocowboys_new
 GO
 BEGIN TRAN
-DELETE from howboutthemcowboys
+DELETE from howboutthemcowboys_new
 GO
 
 -- Step 3: Check how much transaction log is used
@@ -73,14 +72,14 @@ GO
 -- Step 7: Turn on Accelerated Database Recovery
 USE master
 GO
-ALTER DATABASE gocowboys SET ACCELERATED_DATABASE_RECOVERY = ON
+ALTER DATABASE gocowboys_new SET ACCELERATED_DATABASE_RECOVERY = ON
 GO
 
 -- Step 8: Delete all the rows again in a transaction
-USE gocowboys
+USE gocowboys_new
 GO
 BEGIN TRAN
-DELETE from howboutthemcowboys
+DELETE from howboutthemcowboys_new
 GO
 
 -- Step 9: Check log space usage before and after a CHECKPOINT
